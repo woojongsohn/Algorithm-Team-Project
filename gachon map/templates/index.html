@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Route Recommendation</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Campus Route Recommendation System</h1>
+        <p>Artificial Intelligence Group X Term Project</p>
+    </header>
+    <main>
+        <div id="find-friend" class="form-container">
+            <form action="/" method="post">
+                <div class="image-container">
+                    <img src="/static/campus_map.png" alt="Campus Map">
+                </div>
+                <div class="input-container">
+                    <label for="source">Start :</label>
+                    <select id="source" name="source">
+                        <option value="" disabled selected>Select your departure point</option>
+                        <option value="1">1. 가천관</option>
+                        <option value="2">2. 비전타워</option>
+                        <option value="3">3. 법과대학</option>
+                        <option value="4">4. 공과대학1</option>
+                        <option value="5">5. 공과대학2</option>
+                        <option value="6">6. 한의과대학</option>
+                        <option value="7">7. 예술·체육대학1</option>
+                        <option value="8">8. 예술·체육대학2</option>
+                        <option value="9">9. AI관</option>
+                        <option value="10">10. 바이오나노대학</option>
+                        <option value="11">11. 중앙도서관</option>
+                        <option value="12">12. 전자정보도서관</option>
+                        <option value="13">13. 대학원/(원격)평생교육원</option>
+                        <option value="14">14. 교육대학원</option>
+                        <option value="15">15. 바이오나노연구원</option>
+                        <option value="16">16. 산학협력관</option>
+                        <option value="17">17. 반도체대학</option>
+                        <option value="18">18. 학생회관</option>
+                        <option value="19">19. 제1학생생활관</option>
+                        <option value="20">20. 제2학생생활관</option>
+                        <option value="21">21. 제3학생생활관</option>
+                        <option value="22">22. 글로벌센터</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label for="target">Destination :</label>
+                    <select id="target" name="target">
+                        <option value="" disabled selected>Select your destination</option>
+                        <option value="1">1. 가천관</option>
+                        <option value="2">2. 비전타워</option>
+                        <option value="3">3. 법과대학</option>
+                        <option value="4">4. 공과대학1</option>
+                        <option value="5">5. 공과대학2</option>
+                        <option value="6">6. 한의과대학</option>
+                        <option value="7">7. 예술·체육대학1</option>
+                        <option value="8">8. 예술·체육대학2</option>
+                        <option value="9">9. AI관</option>
+                        <option value="10">10. 바이오나노대학</option>
+                        <option value="11">11. 중앙도서관</option>
+                        <option value="12">12. 전자정보도서관</option>
+                        <option value="13">13. 대학원/(원격)평생교육원</option>
+                        <option value="14">14. 교육대학원</option>
+                        <option value="15">15. 바이오나노연구원</option>
+                        <option value="16">16. 산학협력관</option>
+                        <option value="17">17. 반도체대학</option>
+                        <option value="18">18. 학생회관</option>
+                        <option value="19">19. 제1학생생활관</option>
+                        <option value="20">20. 제2학생생활관</option>
+                        <option value="21">21. 제3학생생활관</option>
+                        <option value="22">22. 글로벌센터</option>
+                    </select>
+                </div>
+                <button type="submit">Find Route</button>
+            </form>
+        </div>
+
+        {% if shortest_path %}
+        <div class="result">
+            <h2>Results</h2>
+            <p>Optimal Route : <strong>{{ shortest_path|join(' -> ') }}</strong></p>
+            <p>Distance : <strong>{{ shortest_distance }}</strong></p>
+            <div>
+                <h3>Route Details</h3>
+                {% for step in steps %}
+                    <p>{{ step }}</p>
+                {% endfor %}
+            </div>
+            {% if image %}
+            <div class="result-image-container">
+                <img src="{{ image }}" alt="Shortest Path">
+                <label>Black node : Weight , Red line : Route</label>
+            </div>
+            {% endif %}
+        </div>
+        {% elif error %}
+        <div class="result error">
+            <h2>Error</h2>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+        
+    </main>
+</body>
+</html>
